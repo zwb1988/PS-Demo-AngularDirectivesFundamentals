@@ -1,12 +1,18 @@
-<div>
-    Name: {{ main.user.name}} <br/> <br/> 
-    <div ng-show="main.user.address"> 
-        {{ main.user.address.street}} <br/> 
-        {{ main.user.address.city}} <br/> 
-        {{ main.user.address.planet}}
-    </div> <br/>
-    <div>
-        Friends: 
-        <div ng-repeat="friend in main.user.friends">{{ friend}}</div>
+<div class="panel panel-primary">
+    <div class="panel-heading" ng-click="collapse()"> {{ user.name}}</div>
+    <div class="panel-body" ng-hide="collapsed">
+        <address></address>
+        <h4>Friends: </h4>
+        <ul>
+            <li ng-repeat="friend in user.friends">
+                {{ friend}}
+            </li>
+        </ul>
+
+        <div ng-show="user.rank">
+            Rank: {{ user.rank}}
+        </div>
+
+        <button class="btn btn-success" ng-hide="user.rank" ng-click="knightme(user)">Knight Me</button>
     </div>
 </div>
