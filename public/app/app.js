@@ -45,7 +45,7 @@
             },
             controller: function ($scope) {
                 $scope.collapsed = $scope.initialCollapsed === 'true';
-                
+
                 $scope.knightme = function (user) {
                     user.rank = "knight";
                 };
@@ -53,6 +53,35 @@
 //                $scope.collapsed = false;
                 $scope.collapse = function () {
                     $scope.collapsed = !$scope.collapsed;
+                };
+
+                $scope.removeFriend = function (friend) {
+                    var idx = $scope.user.friends.indexOf(friend);
+                    if (idx > -1) {
+                        $scope.user.friends.splice(idx, 1);
+                    }
+                };
+            }
+        };
+    });
+
+    app.directive('removeFriend', function () {
+        return {
+            restrict: 'E',
+            templateUrl: '/app/templates/removeFriend.html',
+            scope: {
+                notifyParent: '&method'
+            },
+            controller: function ($scope) {
+                $scope.removing = false;
+                $scope.startRemove = function () {
+                    $scope.removing = true;
+                };
+                $scope.cancelRemove = function () {
+                    $scope.removing = false;
+                };
+                $scope.confirmRemove = function () {
+                    $scope.notifyParent();
                 };
             }
         };
