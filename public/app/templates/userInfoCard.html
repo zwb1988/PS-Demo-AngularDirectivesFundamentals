@@ -1,0 +1,12 @@
+<div>
+    Name: {{ main.user.name}} <br/> <br/> 
+    <div ng-show="main.user.address"> 
+        {{ main.user.address.street}} <br/> 
+        {{ main.user.address.city}} <br/> 
+        {{ main.user.address.planet}}
+    </div> <br/>
+    <div>
+        Friends: 
+        <div ng-repeat="friend in main.user.friends">{{ friend}}</div>
+    </div>
+</div>
