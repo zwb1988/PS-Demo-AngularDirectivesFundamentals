@@ -19,7 +19,6 @@
                     scope.$apply(function () {
                         fn(scope);
                     });
-                    fn();
                 });
             }
         };

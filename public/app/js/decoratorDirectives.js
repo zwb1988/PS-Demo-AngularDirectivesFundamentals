@@ -37,7 +37,6 @@
                     scope.$apply(function () {
                         fn(scope, {evt: event});
                     });
-                    fn();
                 });
             }
         };
