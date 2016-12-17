@@ -65,7 +65,7 @@
                 };
                 $scope.nextState = function () {
                     $scope.user.level++;
-                    $scope.user.level = $scope.user.level % 3;
+                    $scope.user.level = $scope.user.level % 4;
                 };
             }
         };
@@ -75,18 +75,12 @@
         return {
             restrict: 'A',
             link: function (scope, element, attributes, controller) {
-                scope.$watch(attributes['stateDisplay'], function (newValue, oldValue) {
-                    switch (newValue) {
-                        case 0:
-                            element.css('background-color', 'white');
-                            break;
-                        case 1:
-                            element.css('background-color', 'yellow');
-                            break;
-                        case 2:
-                            element.css('background-color', 'red');
-                            break;
-                    }
+                var params = attributes['stateDisplay'].split(' ');
+                var linkVar = params[0];
+                var classes = params.slice(1);
+                scope.$watch(linkVar, function (newValue, oldValue) {
+                    element.removeClass(classes.join(' '));
+                    element.addClass(classes[newValue]);
                 });
             }
         };
