@@ -14,7 +14,8 @@
                 'Han',
                 'Leia',
                 'Chewbacca'
-            ]
+            ],
+            level: 0
         };
 
         vm.user2 = {
@@ -28,7 +29,8 @@
                 'Han',
                 'Leia',
                 'Chewbacca'
-            ]
+            ],
+            level: 1
         };
     });
 
@@ -61,6 +63,31 @@
                         $scope.user.friends.splice(idx, 1);
                     }
                 };
+                $scope.nextState = function () {
+                    $scope.user.level++;
+                    $scope.user.level = $scope.user.level % 3;
+                };
+            }
+        };
+    });
+
+    app.directive('stateDisplay', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attributes, controller) {
+                scope.$watch(attributes['stateDisplay'], function (newValue, oldValue) {
+                    switch (newValue) {
+                        case 0:
+                            element.css('background-color', 'white');
+                            break;
+                        case 1:
+                            element.css('background-color', 'yellow');
+                            break;
+                        case 2:
+                            element.css('background-color', 'red');
+                            break;
+                    }
+                });
             }
         };
     });

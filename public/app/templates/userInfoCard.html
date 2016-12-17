@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading" ng-click="collapse()"> {{user.name}}</div>
-    <div class="panel-body" ng-hide="collapsed">
+    <div class="panel-body" ng-hide="collapsed" state-display="user.level">
         <address></address>
         <h4>Friends: </h4>
         <ul>
@@ -15,5 +15,6 @@
         </div>
 
         <button class="btn btn-success" ng-hide="user.rank" ng-click="knightme(user)">Knight Me</button>
+        <button class="btn btn-info" ng-click="nextState()">Next State</button>
     </div>
 </div>
