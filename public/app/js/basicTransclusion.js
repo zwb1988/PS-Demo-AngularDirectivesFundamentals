@@ -3,6 +3,11 @@
 
     app.controller('mainCtrlBasicTransclusion', function ($scope) {
         $scope.message = "This is a message";
+        console.log('controller', $scope);
+    });
+
+    app.controller('innerCtrl', function ($scope) {
+        console.log('inner controller', $scope);
     });
 
     app.directive('displayBox', function () {
@@ -15,8 +20,12 @@
                 $scope.close = function () {
                     $scope.hidden = true;
                 };
+
+                $scope.message = "Hello World";
+                console.log('directive', $scope);
             },
-            transclude: true
+            transclude: true,
+            scope: true
         };
     });
 }());

@@ -10,12 +10,14 @@
     <body ng-controller="mainCtrlBasicTransclusion" class="container" style="padding-top: 30px">
         <h1>Hello World! {{ 100 + 20 + 3}}</h1>
         <display-box>
-            <div>This is content inside</div>
-            <ul>
-                <li>Item 1</li>
-                <li>Item 2</li>
-            </ul>
-            <div>{{message}}</div>
+            <div ng-controller="innerCtrl">
+                <div>This is content inside</div>
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                </ul>
+                <div>{{message}}</div>
+            </div>
         </display-box>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
