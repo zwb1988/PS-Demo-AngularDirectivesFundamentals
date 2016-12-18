@@ -32,15 +32,42 @@
             ],
             level: 1
         };
-        
+
         vm.droid1 = {
             name: 'R2-D2',
             specifications: {
                 manufacturer: 'Industrial Automation',
                 type: 'Astromech',
                 productLine: 'R2 series'
+            },
+            level: 1
+                    // owners...etc
+        };
+    });
+
+    app.directive('userPanel', function () {
+        return {
+            restrict: 'E',
+            transclude: true,
+            templateUrl: '/app/templates/userPanel.html',
+            scope: {
+                name: '@',
+                level: '=',
+                initialCollapsed: '@collapsed'
+            },
+            controller: function ($scope) {
+                $scope.collapsed = $scope.initialCollapsed === 'true';
+
+                $scope.collapse = function () {
+                    $scope.collapsed = !$scope.collapsed;
+                };
+                $scope.nextState = function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    $scope.level++;
+                    $scope.level = $scope.level % 4;
+                };
             }
-            // owners...etc
         };
     });
 
@@ -56,15 +83,8 @@
                 initialCollapsed: '@collapsed'
             },
             controller: function ($scope) {
-                $scope.collapsed = $scope.initialCollapsed === 'true';
-
                 $scope.knightme = function (person) {
                     person.rank = "knight";
-                };
-
-//                $scope.collapsed = false;
-                $scope.collapse = function () {
-                    $scope.collapsed = !$scope.collapsed;
                 };
 
                 $scope.removeFriend = function (friend) {
@@ -73,10 +93,23 @@
                         $scope.person.friends.splice(idx, 1);
                     }
                 };
-                $scope.nextState = function () {
-                    $scope.person.level++;
-                    $scope.person.level = $scope.person.level % 4;
-                };
+            }
+        };
+    });
+
+    app.directive('droidInfoCard', function () {
+        return {
+            restrict: 'E',
+            templateUrl: '/app/templates/droidInfoCard.html',
+            replace: false, //a root html element is required in the template
+            scope: {// scope: false (shared) scope: true (inheritance) 
+                //scope: {} (isolated) multiple directives with isolated scope 
+                //on a same element will cause an exception
+                droid: '=',
+                initialCollapsed: '@collapsed'
+            },
+            controller: function ($scope) {
+
             }
         };
     });
