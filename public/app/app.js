@@ -3,7 +3,7 @@
 
     app.controller('mainCtrl', function () {
         var vm = this;
-        vm.user1 = {
+        vm.person1 = {
             name: 'Luke Skywalker',
             address: {
                 street: 'PO Box 123',
@@ -18,7 +18,7 @@
             level: 0
         };
 
-        vm.user2 = {
+        vm.person2 = {
             name: 'Han Solo',
             address: {
                 street: 'PO Box 123',
@@ -32,24 +32,34 @@
             ],
             level: 1
         };
+        
+        vm.droid1 = {
+            name: 'R2-D2',
+            specifications: {
+                manufacturer: 'Industrial Automation',
+                type: 'Astromech',
+                productLine: 'R2 series'
+            }
+            // owners...etc
+        };
     });
 
-    app.directive('userInfoCard', function () {
+    app.directive('personInfoCard', function () {
         return {
             restrict: 'E',
-            templateUrl: '/app/templates/userInfoCard.html',
+            templateUrl: '/app/templates/personInfoCard.html',
             replace: false, //a root html element is required in the template
             scope: {// scope: false (shared) scope: true (inheritance) 
                 //scope: {} (isolated) multiple directives with isolated scope 
                 //on a same element will cause an exception
-                user: '=',
+                person: '=',
                 initialCollapsed: '@collapsed'
             },
             controller: function ($scope) {
                 $scope.collapsed = $scope.initialCollapsed === 'true';
 
-                $scope.knightme = function (user) {
-                    user.rank = "knight";
+                $scope.knightme = function (person) {
+                    person.rank = "knight";
                 };
 
 //                $scope.collapsed = false;
@@ -58,14 +68,14 @@
                 };
 
                 $scope.removeFriend = function (friend) {
-                    var idx = $scope.user.friends.indexOf(friend);
+                    var idx = $scope.person.friends.indexOf(friend);
                     if (idx > -1) {
-                        $scope.user.friends.splice(idx, 1);
+                        $scope.person.friends.splice(idx, 1);
                     }
                 };
                 $scope.nextState = function () {
-                    $scope.user.level++;
-                    $scope.user.level = $scope.user.level % 4;
+                    $scope.person.level++;
+                    $scope.person.level = $scope.person.level % 4;
                 };
             }
         };
