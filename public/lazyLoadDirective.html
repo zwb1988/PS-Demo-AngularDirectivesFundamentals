@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="app">
+    <head lang="en">
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+    </head>
+    <body ng-controller="mainCtrlLazyLoad" class="container" style="padding-top: 30px">
+        <h1>Hello World! {{ 100 + 20 + 3}}</h1>
+
+        <div my-lazy-render="showit" echo  ng-repeat="item in items">
+            {{item}}
+        </div>
+
+        <button class="btn btn-primary" ng-click="showit = true">Render Content</button>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>-->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.min.js"></script>-->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.min.js"></script>-->
+        <script src="app/app.js"></script>
+        <script src="app/js/lazyLoadDirective.js"></script>
+    </body>
+</html>
