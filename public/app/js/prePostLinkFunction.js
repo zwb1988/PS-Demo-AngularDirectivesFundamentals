@@ -53,7 +53,7 @@
             //require: '^vader', // look for parent or current node as vador
             //require: 'vader', // look for vador as current node
             //require: '?vader', // check of current node is vador
-            require: '?^vader', // only parent node, not current node as vador
+            //require: '?^vader', // only parent node, not current node as vador
 
             /*
              * (no prefix) - Locate the required controller on the current element. Throw an error if not found.
@@ -64,14 +64,16 @@
              * ?^^ - Attempt to locate the required controller by searching the element's parents, or pass null to the link fn if not found. 
              */
 
+            require: ['^vader', '^emperor'],
             controller: function ($scope) {
 
             },
-            link: function (scope, elements, attributes, vadorController) {
+            link: function (scope, elements, attributes, controllers) {
                 elements.data('name', 'Starkiller');
-                if (vadorController) {
-                    elements.data('master', vadorController.name);
-                    console.log('Starkiller\'s master is: ' + vadorController.name);
+                if (controllers.length === 2) {
+                    elements.data('master', controllers[0].name);
+                    console.log('Starkiller\'s master is: ' + controllers[0].name);
+                    console.log('Starkiller\'s master\'s master is: ' + controllers[1].name);
                 } else {
                     console.log('Starkiller doesn\'t have a master');
                 }
