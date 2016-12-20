@@ -1,19 +1,19 @@
 <div class="panel panel-primary">
-    <div class="panel-heading" ng-click="collapse()"> {{user.name}}</div>
-    <div class="panel-body" ng-hide="collapsed">
+    <div class="panel-heading" ng-click="vm.collapse()"> {{vm.user.name}}</div>
+    <div class="panel-body" ng-hide="vm.collapsed">
         <address></address>
         <h4>Friends: </h4>
         <ul>
-            <li ng-repeat="friend in user.friends">
+            <li ng-repeat="friend in vm.user.friends">
                 {{friend}}
-                <remove-friend method="removeFriend(friend)"></remove-friend>
+                <remove-friend method="vm.removeFriend(friend)"></remove-friend>
             </li>
         </ul>
 
-        <div ng-show="user.rank">
-            Rank: {{user.rank}}
+        <div ng-show="vm.user.rank">
+            Rank: {{vm.user.rank}}
         </div>
 
-        <button class="btn btn-success" ng-hide="user.rank" ng-click="knightme(user)">Knight Me</button>
+        <button class="btn btn-success" ng-hide="vm.user.rank" ng-click="vm.knightme(vm.user)">Knight Me</button>
     </div>
 </div>

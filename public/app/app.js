@@ -43,22 +43,24 @@
                 user: '=',
                 initialCollapsed: '@collapsed'
             },
-            controller: function ($scope) {
-                $scope.collapsed = $scope.initialCollapsed === 'true';
+            controllerAs: 'vm',
+            bindToController: true,
+            controller: function () {
+                this.collapsed = this.initialCollapsed === 'true';
 
-                $scope.knightme = function (user) {
+                this.knightme = function (user) {
                     user.rank = "knight";
                 };
 
 //                $scope.collapsed = false;
-                $scope.collapse = function () {
-                    $scope.collapsed = !$scope.collapsed;
+                this.collapse = function () {
+                    this.collapsed = !this.collapsed;
                 };
 
-                $scope.removeFriend = function (friend) {
-                    var idx = $scope.user.friends.indexOf(friend);
+                this.removeFriend = function (friend) {
+                    var idx = this.user.friends.indexOf(friend);
                     if (idx > -1) {
-                        $scope.user.friends.splice(idx, 1);
+                        this.user.friends.splice(idx, 1);
                     }
                 };
             }
