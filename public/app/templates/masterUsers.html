@@ -1,5 +1,5 @@
 <div class="list-unstyled">
     <li ng-repeat="user in users">
-        <button class="btn" ng-click="selectUser(user)" ng-class="{'btn-success': user === selectedUser, 'btn-primary': user !== selectedUser}">{{user.name}}</button>
+        <button class="btn" ng-click="state.selectedUser = user" ng-class="{'btn-success': user === state.selectedUser, 'btn-primary': user !== state.selectedUser}">{{user.name}}</button>
     </li>
 </div>

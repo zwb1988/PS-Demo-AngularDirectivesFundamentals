@@ -10,28 +10,32 @@
         $scope.selectedUser = null;
     });
 
-    app.directive('masterUsers', function () {
+    app.factory('userListState', function () {
+        return {
+            selectedUser: null
+        };
+    });
+
+    app.directive('masterUsers', function (userListState) {
         return {
             scope: {
-                users: '=data',
-                selectedUser: '='
+                users: '=data'
             },
             templateUrl: '/app/templates/masterUsers.html',
             controller: function ($scope) {
-                $scope.selectedUser = $scope.users[0];
-
-                $scope.selectUser = function (user) {
-                    $scope.selectedUser = user;
-                };
+                $scope.state = userListState;
+                userListState.selectedUser = $scope.users[0];
             }
         };
     });
 
-    app.directive('detailUsers', function () {
+    app.directive('detailUsers', function (userListState) {
         return {
             scope: {
-                users: '=data',
-                selectedUser: '='
+                users: '=data'
+            },
+            controller: function ($scope) {
+                $scope.state = userListState;
             },
             templateUrl: '/app/templates/detailUsers.html'
         };
