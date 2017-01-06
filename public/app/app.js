@@ -14,7 +14,12 @@
                 'Han',
                 'Leia',
                 'Chewbacca'
-            ]
+            ],
+            hasForce: true,
+            yearsOfJediTraining: 4,
+            master: 'Yoda',
+            passedTrials: true,
+            masterApproves: true
         };
 
         vm.user2 = {
@@ -32,7 +37,28 @@
         };
     });
 
-    app.directive('userInfoCard', function () {
+    app.factory('jediPolicy', function ($q) {
+        return {
+            advanceToKnight: function (candidate) {
+                var promise = $q(function (resolve, reject) {
+                    if (candidate.hasForce
+                            && (candidate.yearsOfJediTraining > 20
+                                    || candidate.isChosenOne
+                                    || (candidate.master === 'Yoda'
+                                            && candidate.yearsOfJediTraining > 3))
+                            && candidate.masterApproves && candidate.passedTrials) {
+                        candidate.rank = "Jedi Knight";
+                        resolve(candidate);
+                    } else {
+                        reject(candidate);
+                    }
+                });
+                return promise;
+            }
+        };
+    });
+
+    app.directive('userInfoCard', function (jediPolicy) {
         return {
             restrict: 'E',
             templateUrl: '/app/templates/userInfoCard.html',
@@ -49,7 +75,9 @@
                 this.collapsed = this.initialCollapsed === 'true';
 
                 this.knightme = function (user) {
-                    user.rank = "knight";
+                    jediPolicy.advanceToKnight(user).then(null, function (user) {
+                        alert('Sorry ' + user.name + ' is not ready to become a Jedi Knight.');
+                    });
                 };
 
 //                $scope.collapsed = false;
