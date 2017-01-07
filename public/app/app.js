@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('app', []);
+    var app = angular.module('app', ['ui.bootstrap']);
 
     app.controller('mainCtrl', function () {
         var vm = this;
@@ -58,7 +58,17 @@
         };
     });
 
-    app.directive('userInfoCard', function (jediPolicy) {
+    app.controller('knightConfirmationCtrl', function ($scope, $uibModalInstance, user) {
+        $scope.user = user;
+        $scope.yes = function () {
+            $uibModalInstance.close(true);
+        };
+        $scope.no = function () {
+            $uibModalInstance.close(false);
+        };
+    });
+
+    app.directive('userInfoCard', function () {
         return {
             restrict: 'E',
             templateUrl: '/app/templates/userInfoCard.html',
@@ -71,21 +81,40 @@
             },
             controllerAs: 'vm',
             bindToController: true,
-            controller: function () {
+            controller: function (jediPolicy, $uibModal) {
                 this.collapsed = this.initialCollapsed === 'true';
-                this.showKnightModal = false;
+                //this.showKnightModal = false;
 
-                this.knightModalDone = function (response, user) {
-                    if (response) {
-                        jediPolicy.advanceToKnight(user).then(null, function (user) {
-                            alert('Sorry ' + user.name + ' is not ready to become a Jedi Knight.');
-                        });
-                    }
-                    this.showKnightModal = false;
-                };
+                /*
+                 this.knightModalDone = function (response, user) {
+                 if (response) {
+                 jediPolicy.advanceToKnight(user).then(null, function (user) {
+                 alert('Sorry ' + user.name + ' is not ready to become a Jedi Knight.');
+                 });
+                 }
+                 this.showKnightModal = false;
+                 };*/
 
+                var that = this;
                 this.knightme = function (user) {
-                    this.showKnightModal = true;
+                    //this.showKnightModal = true;
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'app/templates/knightConfirmation.html',
+                        controller: 'knightConfirmationCtrl',
+                        resolve: {
+                            user: function () {
+                                return user;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function (result) {
+                        if (result) {
+                            jediPolicy.advanceToKnight(that.user).then(null, function (user) {
+                                alert('Sorry ' + user.name + ' is not ready to become a Jedi Knight.');
+                            });
+                        }
+                    });
                 };
 
 //                $scope.collapsed = false;

@@ -26,3 +26,7 @@
     width: 50px;
     cursor: pointer;
 }
+
+.panel-modal {
+    margin-bottom:  0;
+}
