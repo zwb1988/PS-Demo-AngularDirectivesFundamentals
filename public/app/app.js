@@ -73,11 +73,19 @@
             bindToController: true,
             controller: function () {
                 this.collapsed = this.initialCollapsed === 'true';
+                this.showKnightModal = false;
+
+                this.knightModalDone = function (response, user) {
+                    if (response) {
+                        jediPolicy.advanceToKnight(user).then(null, function (user) {
+                            alert('Sorry ' + user.name + ' is not ready to become a Jedi Knight.');
+                        });
+                    }
+                    this.showKnightModal = false;
+                };
 
                 this.knightme = function (user) {
-                    jediPolicy.advanceToKnight(user).then(null, function (user) {
-                        alert('Sorry ' + user.name + ' is not ready to become a Jedi Knight.');
-                    });
+                    this.showKnightModal = true;
                 };
 
 //                $scope.collapsed = false;

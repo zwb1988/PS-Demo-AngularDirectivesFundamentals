@@ -16,4 +16,15 @@
 
         <button class="btn btn-success" ng-hide="vm.user.rank" ng-click="vm.knightme(vm.user)">Knight Me</button>
     </div>
+    
+    <modal open="vm.showKnightModal" options="{width: '100px', left: '40px'}" on-close='vm.knightModalDone'>
+        <div class="panel panel-primary">
+            <div class="panel-heading">Jedi Knight</div>
+            <div class="panel-body">
+                <p>Do you want the Jedi Knight rank granted to {{vm.user.name}}</p>
+                <button class="btn btn-success" ng-click="vm.knightModalDone(true, vm.user)">Yes</button>
+                <button class="btn btn-danger" ng-click="vm.knightModalDone(false, vm.user)">No</button>
+            </div>
+        </div>
+    </modal>
 </div>
